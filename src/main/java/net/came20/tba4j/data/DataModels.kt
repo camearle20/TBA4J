@@ -41,7 +41,7 @@ data class Event(
         @SerializedName("location_name") val locationName: String,
         val timezone: String,
         val website: String,
-        val webcasts: HashMap<String, Any>,
+        val webcasts: List<HashMap<String, Any>>,
         val week: Int,
         @SerializedName("start_date") val startDate: String,
         @SerializedName("end_date") val endDate: String

@@ -10,7 +10,7 @@ import java.time.Year
 /**
  * Created by cameronearle on 5/22/17.
  */
-internal class DistrictRequestsImpl(apiKey: String) : RequestsBase(apiKey) {
+class DistrictRequestsImpl(apiKey: String) : RequestsBase(apiKey) {
     @JvmOverloads fun getDistricts(year: Int = Year.now().value) = requester.makeRequest("/districts/$year", object : TypeToken<List<District>>(){})
     @JvmOverloads fun getDistrictEvents(district: String, year: Int = Year.now().value) = requester.makeRequest("/district/$year$district/events", object : TypeToken<List<Event>>(){})
     @JvmOverloads fun getDistrictRankings(district: String, year: Int = Year.now().value) = requester.makeRequest("/district/$year$district/rankings", object : TypeToken<List<DistrictRanking>>(){})

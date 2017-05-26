@@ -8,7 +8,7 @@ import java.time.Year
 /**
  * Created by cameronearle on 5/21/17.
  */
-internal class EventRequestsImpl(apiKey: String) : RequestsBase(apiKey) {
+class EventRequestsImpl(apiKey: String) : RequestsBase(apiKey) {
     @JvmOverloads fun getEvents(year: Int = Year.now().value) = requester.makeRequest("/events/$year", object : TypeToken<List<Event>>(){})
     @JvmOverloads fun getEvent(event: String, year: Int = Year.now().value) = requester.makeRequest("/event/$year$event", object : TypeToken<Event>(){})
     @JvmOverloads fun getEventTeams(event: String, year: Int = Year.now().value) = requester.makeRequest("/event/$year$event/teams", object : TypeToken<List<Team>>(){})

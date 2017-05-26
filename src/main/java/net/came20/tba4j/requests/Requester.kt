@@ -19,24 +19,23 @@ import net.came20.tba4j.exception.TBAException
  * @author Cameron Earle
  * @version 5/23/17
  */
-internal class Requester(val apiKey: String) {
+class Requester internal constructor(val apiKey: String) {
     private val gson = Gson()
 
     init {
         FuelManager.instance.basePath = "http://www.thebluealliance.com/api/v3"
         FuelManager.instance.baseHeaders = mapOf("User-Agent" to "TBA4J",
-                                                 "X-TBA-Auth-Key" to apiKey,
                                                  "Accept" to "application/json",
                                                  "charset" to "utf-8")
     }
 
     fun <T> makeRequest(requestString: String, token: TypeToken<T>): T {
-        val (_, response, result) = requestString.httpGet().responseString()
+        val (request, response, result) = requestString.httpGet().header("X-TBA-Auth-Key" to apiKey).responseString()
         result.fold({ //Success
             try {
                 return gson.fromJson(it, token.type)
             } catch (e: Exception) {
-                throw TBAException("Error parsing response!  This is not normal!  Either TBA is malfunctioning or this is a bug!", e)
+                throw TBAException("Error parsing response \n$it\n", e)
             }
         }, { //Failure
             if (response.httpStatusCode == 401) { //Auth error

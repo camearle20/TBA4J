@@ -8,6 +8,6 @@ import java.time.Year
  * Created by cameronearle on 5/22/17.
  */
 
-internal class MatchRequestsImpl(apiKey: String) : RequestsBase(apiKey) {
+class MatchRequestsImpl(apiKey: String) : RequestsBase(apiKey) {
     @JvmOverloads fun getMatch(match: String, event: String, year: Int = Year.now().value) = requester.makeRequest("/match/$year${event}_$match", object : TypeToken<Match>(){})
 }
